@@ -34,7 +34,7 @@ app.get("/users",(req,res)=>{
 
 
 
-    var database = clientObj.db("todo");
+    
     database.collection("users").find({}).toArray().then(document=>{
              res.send(document);
              res.end();
@@ -47,7 +47,7 @@ app.get("/users",(req,res)=>{
 
 app.get("/get-appointments/:userid",(req,res)=>{
     
-        var database = clientObj.db("todo");
+        
         database.collection("appointments").find({UserId:req.params.userid}).toArray().then(document=>{
                
                  res.send(document);
@@ -63,7 +63,7 @@ app.get("/get-appointment/:userid/:id",(req,res)=>{
 
     const AID = parseInt(req.params.id);
     
-        var database = clientObj.db("todo");
+       
         database.collection("appointments").findOne({$and:[{UserId:req.params.userid},{AppointmentId:AID}]}).then(document=>{
                 console.log(document);
                  res.send(document);
@@ -86,7 +86,7 @@ app.post("/register-user",(req,res)=>{
 
     }
    
-        var database = clientObj.db("todo");
+        
         database.collection("users").insertOne(user).then(()=>{
             console.log("user Registered");
             res.end();
@@ -107,7 +107,7 @@ app.post("/register-user",(req,res)=>{
 
        }
       
-        var database = clientObj.db("todo");
+      
         database.collection("appointments").insertOne(appointment).then(()=>{
            
             res.end();
@@ -129,7 +129,7 @@ app.post("/register-user",(req,res)=>{
  
         }
        
-         var database = clientObj.db("todo");
+        
          database.collection("appointments").updateOne({$and:[{UserId:req.params.userid},{AppointmentId:AID}]}
          ,{ $set:{
             Title: appointment.Title,
@@ -150,7 +150,7 @@ app.post("/register-user",(req,res)=>{
      app.delete('/delete-appointment/:userid/:id', (req, res)=>{
        var AID = parseInt(req.params.id);
        
-             var database = clientObj.db("todo");
+             
              database.collection('appointments').deleteOne({$and:[{UserId:req.params.userid},{AppointmentId:AID}]}).then(()=>{
                 console.log('Appointment Deleted..');
                 res.end();
